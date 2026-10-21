@@ -1,12 +1,9 @@
-﻿-- Motor utilizado: SQL Server (SSMS)
--- Base de datos: Ventas_Tech_DB
--- Antes de ejecutar, crear y seleccionar la base:
+﻿-- Antes de ejecutar, crear y seleccionar la base:
 --   CREATE DATABASE Ventas_Tech_DB;
 --   USE Ventas_Tech_DB;
 
 -- =====================================================
 -- SECCIÓN 1 — DROP TABLES
--- (orden inverso a las dependencias para no violar FK)
 -- =====================================================
 DROP TABLE IF EXISTS ventas;
 DROP TABLE IF EXISTS productos;
@@ -15,17 +12,13 @@ DROP TABLE IF EXISTS categorias;
 
 -- =====================================================
 -- SECCIÓN 2 — CREATE TABLES
--- (primero las tablas que no dependen de ninguna otra)
 -- =====================================================
-
--- Tabla de dimensión: categorias
 CREATE TABLE categorias (
     id_categoria     INT           PRIMARY KEY,
     nombre_categoria VARCHAR(50)   NOT NULL,
     descripcion      VARCHAR(200)
 );
 
--- Tabla de dimensión: clientes
 CREATE TABLE clientes (
     id_cliente     INT           PRIMARY KEY,
     nombre         VARCHAR(100)  NOT NULL,
@@ -34,7 +27,6 @@ CREATE TABLE clientes (
     fecha_registro DATE          NOT NULL
 );
 
--- Tabla de dimensión: productos
 CREATE TABLE productos (
     id_producto     INT            PRIMARY KEY,
     nombre_producto VARCHAR(100)   NOT NULL,
@@ -44,7 +36,6 @@ CREATE TABLE productos (
     activo          BIT            DEFAULT 1
 );
 
--- Tabla de hechos: ventas
 CREATE TABLE ventas (
     id_venta        INT            PRIMARY KEY,
     id_cliente      INT            FOREIGN KEY REFERENCES clientes(id_cliente),
@@ -55,18 +46,14 @@ CREATE TABLE ventas (
 );
 
 -- =====================================================
--- SECCIÓN 3 — INSERT DATA (25 registros)
--- (primero las tablas sin dependencias)
+-- SECCIÓN 3 — INSERT DATA
 -- =====================================================
-
--- categorias — 4 registros
 INSERT INTO categorias (id_categoria, nombre_categoria, descripcion) VALUES
   (1, 'Computación',    'Laptops, PCs y monitores'),
   (2, 'Accesorios',     'Periféricos y complementos'),
   (3, 'Audio',          'Auriculares y parlantes'),
   (4, 'Almacenamiento', 'Discos y memorias');
 
--- clientes — 5 registros
 INSERT INTO clientes (id_cliente, nombre, email, ciudad, fecha_registro) VALUES
   (1, 'María López',  'maria@mail.com',  'Buenos Aires', '2024-01-05'),
   (2, 'Carlos Ruiz',  'carlos@mail.com', 'Córdoba',      '2024-01-10'),
@@ -74,7 +61,6 @@ INSERT INTO clientes (id_cliente, nombre, email, ciudad, fecha_registro) VALUES
   (4, 'Pedro Sanz',   'pedro@mail.com',  'Mendoza',      '2024-02-15'),
   (5, 'Laura Torres', 'laura@mail.com',  'Tucumán',      '2024-03-01');
 
--- productos — 6 registros
 INSERT INTO productos (id_producto, nombre_producto, id_categoria, precio, stock, activo) VALUES
   (1, 'Laptop Pro 15',      1, 1200.00, 15, 1),
   (2, 'Mouse Inalámbrico',  2,   28.00, 80, 1),
@@ -83,7 +69,6 @@ INSERT INTO productos (id_producto, nombre_producto, id_categoria, precio, stock
   (5, 'SSD Externo 1TB',    4,  130.00, 18, 1),
   (6, 'Teclado Mecánico',   2,   95.00, 40, 1);
 
--- ventas — 10 registros
 INSERT INTO ventas (id_venta, id_cliente, id_producto, cantidad, precio_unitario, fecha_venta) VALUES
   ( 1, 1, 1, 2, 1200.00, '2024-03-05'),
   ( 2, 2, 2, 5,   28.00, '2024-03-06'),
@@ -99,7 +84,7 @@ INSERT INTO ventas (id_venta, id_cliente, id_producto, cantidad, precio_unitario
 -- =====================================================
 -- SECCIÓN 4 — VALIDACIÓN
 -- =====================================================
-SELECT * FROM categorias;   -- esperado: 4 filas
-SELECT * FROM clientes;     -- esperado: 5 filas
-SELECT * FROM productos;    -- esperado: 6 filas
-SELECT * FROM ventas;       -- esperado: 10 filas
+SELECT * FROM categorias;  
+SELECT * FROM clientes;    
+SELECT * FROM productos;
+SELECT * FROM ventas;    
