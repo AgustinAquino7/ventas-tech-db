@@ -66,10 +66,46 @@ ventas-tech-db/
 
 **`m4_consultas_negocio.sql`**
 
-1. Resumen ejecutivo mensual: total facturado, cantidad de pedidos y ticket promedio.
-2. Ranking de productos: top 5 por total facturado.
-3. Clientes recurrentes: clientes con más de un pedido.
-4. Meses por encima y por debajo del promedio mensual.
+## Resultados y hallazgos de M4
+
+### 1. Facturación mensual
+Durante marzo de 2024 se registró una facturación total de $6.444,00, distribuida en 10 ventas, con un ticket promedio de $644,40.
+
+### 2. Productos con mayor facturación
+El producto 1 generó $3.600,00, equivalente aproximadamente al 55,9% de la facturación total. En cambio, el producto 2 fue el más vendido en unidades, con 13, pero generó $364,00.
+
+### 3. Clientes recurrentes
+Los cinco clientes realizaron dos compras cada uno. Los clientes 1 y 5 acumularon $4.740,00, aproximadamente el 73,6% de la facturación total.
+
+### 4. Comparación con el promedio
+Marzo registró $6.444,00, igual al promedio calculado. Sin embargo, como la base solo contiene datos de marzo de 2024, no es posible identificar tendencias mensuales ni evaluar una caída trimestral.
+
+## Resultados y hallazgos de M5
+
+### 1. Integración de tablas (`INNER JOIN`)
+Las 10 ventas se relacionaron con sus respectivos clientes, productos y categorías, permitiendo analizar la información comercial de manera integrada.
+
+### 2. Clientes sin compras (`LEFT JOIN`)
+La consulta no devolvió filas. Esto indica que todos los clientes registrados realizaron al menos una compra.
+
+### 3. Productos sin ventas (`LEFT JOIN`)
+La consulta no devolvió filas. Esto indica que todos los productos registrados aparecen en al menos una venta.
+
+### 4. Comparación de facturación por período (`UNION ALL`)
+
+| Período | Facturación |
+|---|---:|
+| Primera etapa (hasta el 10/03/2024) | $3.620,00 |
+| Segunda etapa (desde el 11/03/2024) | $2.824,00 |
+| **Total** | **$6.444,00** |
+
+La facturación disminuyó $796,00 entre ambas etapas, lo que representa una caída aproximada del 22%.
+
+## Limitaciones del análisis
+
+Los datos disponibles corresponden únicamente a marzo de 2024. Por lo tanto, la comparación temporal no permite confirmar una caída trimestral del 15% ni determinar sus causas. Además, la ciudad del cliente se utiliza como referencia geográfica aproximada, ya que la base de datos no dispone de una dimensión específica de regiones comerciales.
+
+Para profundizar el análisis, sería necesario incorporar datos de otros meses o trimestres y clasificar formalmente las ventas por región.
 
 **`m5_consultas_joins.sql`**
 
