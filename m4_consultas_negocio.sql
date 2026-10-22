@@ -14,6 +14,8 @@ FROM ventas
 GROUP BY MONTH(fecha_venta)
 ORDER BY mes;
 
+-- Hallazgo: En marzo de 2024 se registró una facturación
+-- de $6.444,00, con 10 ventas y un ticket promedio de $644,40.
 -- =====================================================
 -- CONSULTA 2 — Ranking de productos
 -- =====================================================
@@ -24,7 +26,10 @@ SELECT TOP 5
 FROM ventas
 GROUP BY id_producto
 ORDER BY total_facturado DESC;
-
+-- Hallazgo: El producto 1 generó la mayor facturación,
+-- con $3.600,00 (aproximadamente el 55,9% del total).
+-- El producto 2 fue el más vendido en unidades, con 13,
+-- pero generó solamente $364,00.
 -- =====================================================
 -- CONSULTA 3 — Clientes recurrentes
 -- =====================================================
@@ -36,7 +41,9 @@ FROM ventas
 GROUP BY id_cliente
 HAVING COUNT(*) > 1
 ORDER BY total_gastado DESC;
-
+-- Hallazgo: Los cinco clientes realizaron dos compras cada uno.
+-- Los clientes 1 y 5 sumaron $4.740,00, aproximadamente
+-- el 73,6% de la facturación total.
 -- =====================================================
 -- CONSULTA 4 — Meses por encima/por debajo del promedio
 -- =====================================================
@@ -59,9 +66,6 @@ SELECT
 FROM facturacion_mensual
 ORDER BY mes;
 
--- =====================================================
--- HALLAZGOS
--- =====================================================
--- 1. El producto 1 concentra el 55,9% de la facturación total (3.600 de 6.444) con solo 3 unidades vendidas.
--- 2. El producto 2 es el más vendido en unidades (13), pero queda 5.º en facturación con solo 364 (5,6% del total).
--- 3. Los 5 clientes compraron exactamente 2 veces, pero los clientes 1 y 5 concentran el 73,6% del total gastado (4.740 de 6.444).
+-- Hallazgo: Marzo registró $6.444,00 y coincide con el
+-- promedio calculado. Como solo hay datos de un mes,
+-- no es posible identificar una tendencia mensual.
