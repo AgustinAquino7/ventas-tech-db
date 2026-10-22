@@ -35,6 +35,9 @@ FROM clientes AS c
 LEFT JOIN ventas AS v ON c.id_cliente = v.id_cliente
 WHERE v.id_venta IS NULL;
 
+-- Hallazgo: Todos los clientes registrados realizaron
+-- al menos una compra, ya que la consulta no devolvió filas.
+
 -- =====================================================
 -- Consulta 3: Productos sin ventas (LEFT JOIN)
 -- =====================================================
@@ -46,6 +49,9 @@ FROM productos AS p
 LEFT JOIN ventas     AS v   ON p.id_producto  = v.id_producto
 LEFT JOIN categorias AS cat ON p.id_categoria = cat.id_categoria
 WHERE v.id_venta IS NULL;
+
+-- Hallazgo: Todos los productos registrados aparecen
+-- en al menos una venta, ya que la consulta no devolvió filas.
 
 -- =====================================================
 -- Consulta 4: Consolidado por canal (UNION ALL)
@@ -62,4 +68,9 @@ FROM (
 ) AS consolidado
 GROUP BY canal
 ORDER BY total_canal DESC;
+
+-- Hallazgo: La facturación pasó de $3.620,00 en la primera
+-- etapa a $2.824,00 en la segunda, una disminución aproximada
+-- del 22%. La comparación corresponde a dos períodos de marzo
+-- de 2024 y no representa una caída trimestral.
 
