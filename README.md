@@ -73,12 +73,32 @@ ventas-tech-db/
 
 **`m5_consultas_joins.sql`**
 
-1. Vista base del proyecto (`INNER JOIN`): cada venta con cliente, ciudad, producto y categoría.
-2. Clientes sin ventas (`LEFT JOIN`).
-3. Productos sin ventas (`LEFT JOIN`).
-4. Consolidado por origen (`UNION ALL`).
+## Hallazgos de las consultas M5
 
-Cada archivo cierra con hallazgos escritos en comentarios, que leen los resultados en términos de negocio.
+### 1. Integración de tablas (`INNER JOIN`)
+Se relacionaron correctamente las 10 ventas registradas con sus respectivos clientes, productos y categorías. La consulta permite analizar las ventas con información integrada de las distintas tablas.
+
+### 2. Clientes sin compras (`LEFT JOIN`)
+La consulta no devolvió filas. Esto indica que todos los clientes registrados en la base de datos realizaron al menos una compra.
+
+### 3. Productos sin ventas (`LEFT JOIN`)
+La consulta no devolvió filas. Esto indica que todos los productos registrados aparecen en al menos una venta.
+
+### 4. Comparación de facturación por período (`UNION ALL`)
+Los resultados muestran la siguiente distribución:
+
+| Período | Facturación |
+|---|---:|
+| Primera etapa (hasta el 10/03/2024) | $3.620,00 |
+| Segunda etapa (desde el 11/03/2024) | $2.824,00 |
+| **Total** | **$6.444,00** |
+
+La facturación disminuyó $796,00 entre ambas etapas, lo que representa una caída aproximada del 22%.
+
+### Limitaciones del análisis
+La comparación corresponde a dos períodos de marzo de 2024 y no permite confirmar por sí sola una caída trimestral del 15% ni determinar sus causas. Además, la base de datos utiliza la ciudad del cliente como referencia geográfica, pero no cuenta con una dimensión específica de regiones comerciales.
+
+Para realizar un análisis más completo, sería necesario incorporar información de otros meses o trimestres y clasificar formalmente las ventas por región.
 
 ## 🎯 Conexión con el brief inicial (M1)
 
